@@ -31,3 +31,11 @@ func (mr *MyRedis) Close() {
 	}
 	return
 }
+
+func (mr *MyRedis) ToString(reply interface{}, err error) (string, error) {
+	return redis.String(reply, err)
+}
+
+func (mr *MyRedis) ToInt64(reply interface{}, err error) (int64, error) {
+	return redis.Int64(reply, err)
+}

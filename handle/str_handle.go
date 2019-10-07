@@ -2,7 +2,6 @@ package handle
 
 import (
 	"fmt"
-	"github.com/garyburd/redigo/redis"
 )
 
 type Expire struct {
@@ -27,7 +26,7 @@ func (mr *MyRedis) SetStr(key, value string, expire Expire) (interface{}, error)
 }
 
 func (mr *MyRedis) GetStr(key string) (string, error) {
-	res, err := redis.String(mr.C.Do("GET", key))
+	res, err := mr.ToString(mr.C.Do("GET", key))
 	if err != nil {
 		return "", err
 	}
@@ -35,7 +34,7 @@ func (mr *MyRedis) GetStr(key string) (string, error) {
 }
 
 func (mr *MyRedis) ExistKey(key string) bool {
-	res, err := redis.Int64(mr.C.Do("EXISTS", key))
+	res, err := mr.ToInt64(mr.C.Do("EXISTS", key))
 	if err != nil {
 		fmt.Println("exists error is ", err)
 		return false
